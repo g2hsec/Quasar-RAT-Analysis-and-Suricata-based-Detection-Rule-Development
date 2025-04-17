@@ -104,7 +104,7 @@
 📌 설치 경로 예시: C:\Users\g2h\AppData\Roaming\SubDir\Client.exe
 ---
 
-## 4️⃣ 어셈블리 설정 (Assembly Settings)
+## 4어셈블리 설정 (Assembly Settings)
 - 실행 파일의 메타데이터 수정 가능:
   - Product Name, Company, Version 등
 - 실행 파일 아이콘 변경 가능
@@ -112,14 +112,14 @@
 
 ---
 
-## 5️⃣ 감시 설정 (Surveillance Settings)
+## 감시 설정 (Surveillance Settings)
 - 키로깅 기능 활성화 가능
 - 로그 저장 디렉토리 지정 (`Logs`)
 - 로그 폴더 숨김 설정 가능
 
 ---
 
-## 6️⃣ Build Client
+## Build Client
 - 모든 설정 완료 후 **빌드 버튼 클릭** 시 `.exe` 생성
 - 해당 Agent 파일이 실제 공격에 사용됨
 
@@ -142,12 +142,19 @@
 ## 트래픽 분석
 
 ![image](https://github.com/user-attachments/assets/c2d6c496-b0d3-48ba-81f4-08f982daf8db)
+
 <hr>
+
 ![image](https://github.com/user-attachments/assets/46539376-ec73-47af-af1c-b846b0334a4d)
+
 <hr>
+
 ![image](https://github.com/user-attachments/assets/69025936-409b-4942-9109-57d4894f3444)
+
 <hr>
+
 ![image](https://github.com/user-attachments/assets/461811ba-01b4-4950-ae12-c11a01a56d2b)
+
 <hr>
 ![image](https://github.com/user-attachments/assets/e26c562a-759c-469e-b5b1-6ddbead7dd8c)
 
