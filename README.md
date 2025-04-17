@@ -12,6 +12,27 @@
 5. 사설 HTS위장을 통해 QuasarRAT 가 유출되고 있음
 6. APT33, APT10, Dropping Elephant, Stone Panda, The Gorgon Group을 포함한 많은 실제 해킹 그룹이 Quasar RAT를 사용함
 
+| 항목         | 내용                                                                 |
+|--------------|----------------------------------------------------------------------|
+| **명칭**     | Quasar RAT                                                           |
+| **분류**     | Remote Access Trojan (RAT)                                           |
+| **출시 시점** | 2014년경 오픈소스 형태로 GitHub에 최초 등장                         |
+| **기반 언어** | C# (.NET Framework 기반)                                            |
+| **용도**     | 원격 제어, 키로깅, 파일 업로드/다운로드, 웹캠/마이크 감시, 실행 명령 수행 등 |
+
+---
+
+## 💡 부가 정보 요약
+
+- **라이선스**: MIT 라이선스 기반 오픈소스
+- **GitHub**: [https://github.com/quasar/Quasar](https://github.com/quasar/Quasar)
+- **빌더 포함**: 자체 UI 빌더로 클라이언트 설정 가능 (서버 IP, 포트, 암호 등 지정)
+- **주요 기능**:
+  - AES-256 암호화된 C2 통신
+  - 클립보드 데이터 수집
+  - 자동 실행 (Persistence) 설정
+  - USB 전파 기능 (옵션)
+
 ```
 분석도구
 1. Wireshark
