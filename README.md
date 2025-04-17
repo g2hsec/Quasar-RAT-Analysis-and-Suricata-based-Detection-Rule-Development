@@ -1,4 +1,4 @@
-# Quasar-RAT-Analysis-and-Suricata-based-Detection-Rule-Development
+![image](https://github.com/user-attachments/assets/3c2e0912-05ad-4b26-baa4-0cf7e9b17908)# Quasar-RAT-Analysis-and-Suricata-based-Detection-Rule-Development
 악성 프로그램(Quasar RAT) 분석 및 Suricata 기반 탐지 규칙 작성 및 시현
 
 # Quasar RAT 1.3.0 (1.4.1) - RAT 패킷 분석 및 탐지
@@ -319,24 +319,53 @@ alert tcp any any -> any any (msg:"[Alert] Quasar RAT Signatures Code 8";flow:to
 
 > D-SACK는 중복 수신된 데이터 존재로 인한 공개 메시지 Application Data 없이 짧은 간격으로 Keep-Alive 와 D-SACK가 발생 Beaconing 의심됨. D-SACK가 반복되며, 짧은 시간내에 주기적으로 발생 이와 함께 Application Data는 존재하지 않음 -> 비정상적 통신 흐름으로 분류
 
+![image](https://github.com/user-attachments/assets/42c1a4cf-606b-4f9a-8b16-6ba251f0242c)
 
-> 인증서 Subject 블록의
-CN(Common Name) 즉, 인증 대상의 호스트 이름 또는 식별자 이름이 
-Quasar Server CA 로 되어 있다.  
-O (Organization), OU (Organizational Unit) 필드는 없으며, 해당 인증서는 자체 생성된 셀프사인 인증서로 보인다.
+> 인증서 Subject 블록의 CN(Common Name) 즉, 인증 대상의 호스트 이름 또는 식별자 이름이  Quasar Server CA 로 되어 있다.   O (Organization), OU (Organizational Unit) 필드는 없으며, 해당 인증서는 자체 생성된 셀프사인 인증서로 보인다.
 
+![image](https://github.com/user-attachments/assets/3411e3d8-1e97-4389-8deb-ba28332f4a0f)
 
+> 인증서의 만료 시간 필드가 비정상적인 값을 가지고 있음, generalizedTime 포맷을 제대로 파싱하지 못하는 경우 사진과 같이 나옴 이는 와이어샤크와 같은 툴이 내부적으로 제한된 시간 범위밖의 값을 표시하지 못하기 때문, 즉 인증서 자체가 파싱 도중 만료 시간 확인이 불가능한 비정상 상태 대부분 가짜 인증서, 악성 RAT, 백도어에서 사용하는 커스텀 TLS 인증서에서 자주 보이는 현상
 
+![image](https://github.com/user-attachments/assets/7214148f-046d-4465-bb6b-bb40a4ce9d42)
+
+> 대부분의 TLS통신에서의 브라우저 혹은 앱은 SNI 을 포함한다.(호스트 명시) 즉, TLS ClientHello는 tls.sni 필드를 포함한다. 이러한 필드(sni)가 없을 경우 Malware 혹은 C2프레임워크는 이 필드를 의도적으로 생략하여 탐지회피 혹은 Hostname을 은폐한다. 
+
+![image](https://github.com/user-attachments/assets/990cc6a8-31bb-4a42-9d88-d4fb0cf2b36c)
+<br><hr>
+
+<br><br><hr>
+
+![image](https://github.com/user-attachments/assets/a8fe3dc7-67a8-4483-a511-9d92e34b7623)
+
+> 고정된 JA3 + 고정된 TLS Fingerprint + SNI 없음"은 정상 환경에선 거의 발생하지 않으며, 이는 매우 높은 확률로 RAT, C2 백도어, 또는 악성 TLS 클라이언트의 명확한 지표로 간주된다. 이 조합은 고신뢰 탐지 조건으로 사용하며, 오탐 가능성은 제한된 일부 자동화 툴 또는 IoT 장비에만 존재 JA3 값의 경우 화이트리스트 기반으로 관리하여 비정상 JA3 값을 탐지하는게 보다 효과적임
+
+```
+1. MITRE ATT&CK T1573.001 - Encrypted Channel: TLS
+ - APT 및 일반적인 RAT은 탐지 회피를 위해 암호화된 채널을 사용하는데, SNI를 제거하고, 동일한 TLS 구조를 사용하는 경우가 많음
+	특징 : JA3 고정, SNI 없음, TLS ClientHello 구조 거의 동일
+
+2. 실제 보안 운영(SOC) 환경의 통계
+ - Cisco Talos의 블로그 포스트 "Nanocore, Netwire and AsyncRAT spreading campaign uses public infrastructure“
+	- 이러한 RAT들은 고정된 JA3 해시와 SNI 부재 등의 특징을 	보이며, 이를 기반으로 한 탐지가 효과적임을 보여줌
+
+3. 대규모 트래픽 기반의 실증 연구 결과
+ - Imperial College London의 연구 논문 "Detecting Malware in TLS Traffic“
+	- 고정된 JA3 해시와 SNI 부재가 악성 트래픽의 주요 
+	지표임을 강조
+	- 정상적인 클라이언트는 다양한 JA3 해시 값을 가지는 반면, 	악성코드는 동일한 JA3 해시 값을 반복적으로 사용하는 경향이 	있음을 실증적으로 보여줌
+```
 
 
 
 
 # 참고 문헌
-### https://www.cisa.gov/news-events/analysis-reports/ar18-352a#:~:text=first%204%20bytes%20of%20the,payload%20size%20of%2064%20bytes
-### https://unit42.paloaltonetworks.com/unit42-downeks-and-quasar-rat-used-in-recent-targeted-attacks-against-governments/#:~:text=Quasar%20contains%20the%20NetSerializer%20library,each%20other%20to%20some%20extent
-### https://github.com/quasar/Quasar/tree/v1.3.0.0
-### https://asec.ahnlab.com/ko/tag/quasarrat-jp/
-### http://www.wins21.co.kr/kor/promotion/information.html?bmain=view&uid=4424&search=%26depth1%3D%26find_field%3Dtitle%26find_word%3DQuasar%26page%3D1
-### https://www.uptycs.com/blog/threat-research-report-team/quasar-rat
-
+```
+https://www.cisa.gov/news-events/analysis-reports/ar18-352a#:~:text=first%204%20bytes%20of%20the,payload%20size%20of%2064%20bytes
+https://unit42.paloaltonetworks.com/unit42-downeks-and-quasar-rat-used-in-recent-targeted-attacks-against-governments/#:~:text=Quasar%20contains%20the%20NetSerializer%20library,each%20other%20to%20some%20extent
+https://github.com/quasar/Quasar/tree/v1.3.0.0
+https://asec.ahnlab.com/ko/tag/quasarrat-jp/
+http://www.wins21.co.kr/kor/promotion/information.html?bmain=view&uid=4424&search=%26depth1%3D%26find_field%3Dtitle%26find_word%3DQuasar%26page%3D1
+https://www.uptycs.com/blog/threat-research-report-team/quasar-rat
+```
 
