@@ -224,6 +224,7 @@
 
 <br>
 <hr>
+
 ![image](https://github.com/user-attachments/assets/df7850fc-a762-4cca-9e58-9f4ba786140e)
 
 > 짧은 시간 내에 클라이언트에서 서버측으로, 1460 바이트 크기 헤더를 제외한 MTU 1460값을 지속적으로 전달중, 이는 대량의 파일이 유출되는 과정이므로
