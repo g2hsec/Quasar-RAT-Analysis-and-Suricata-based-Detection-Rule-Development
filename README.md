@@ -72,6 +72,7 @@
 ## Quasar RAT Client Builder 설정 흐름 정리
 
 ![image](https://github.com/user-attachments/assets/012ee1d7-c53d-4a33-9fe3-340e3e8d83ec)
+
 1. Quasar RAT 실행시 상단 4개 툴바 존재
 2. Settings -> C2_Server에서  리스닝할 포트 지정 가능
 3. 일반적으로 RAT 서버 설정에서 사용
@@ -80,6 +81,7 @@
 6. 클라이언트와 통신 시 사용할 인증 비밀번호
 
 ![image](https://github.com/user-attachments/assets/2b49142c-c10c-46c3-b2c0-4138560a33ac)
+
 ###  기본 설정 (Basic Settings)
 - Client Tag 및 접속 포트 설정  
   예시: `User@PC`, Port: `4782`
@@ -155,12 +157,15 @@
 ![image](https://github.com/user-attachments/assets/461811ba-01b4-4950-ae12-c11a01a56d2b)
 
 <hr>
+
 ![image](https://github.com/user-attachments/assets/e26c562a-759c-469e-b5b1-6ddbead7dd8c)
 
-> TCP Steream 을 통해 패킷 데이터를 확인해보면, 암호화된 데이터로 출력되어,
-실제 데이터 확인이 어려움
+> TCP Steream 을 통해 패킷 데이터를 확인해보면, 암호화된 데이터로 출력되어, 실제 데이터 확인이 어려움
+
 ![image](https://github.com/user-attachments/assets/c8944d47-bb80-45ec-a223-d806e1dcef8d)<br>
+
 ![image](https://github.com/user-attachments/assets/74ee3a32-2b01-4a31-bc15-2847a66b49ca)
+
 > 빌드시 자동생성되는 Client.bin 파일을 디컴파일 해본 결과 xClinent.Core.Cryptography  부분에 데이터를 암호화하는 AES, SHA256 파일이 존재, 이를통해 암호화 알고리즘을 식별 할 수 있었으며, AES 파일 내부에 IV, HMAC 와 같은 각각의 암호화,복호화에 사용되는 정보가 존재
 
 ![image](https://github.com/user-attachments/assets/f360122f-ba73-4d6c-b30c-912efcdceeba)
