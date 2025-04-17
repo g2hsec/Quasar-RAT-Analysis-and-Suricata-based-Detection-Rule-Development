@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/3c2e0912-05ad-4b26-baa4-0cf7e9b17908)# Quasar-RAT-Analysis-and-Suricata-based-Detection-Rule-Development
+# Quasar-RAT-Analysis-and-Suricata-based-Detection-Rule-Development
 악성 프로그램(Quasar RAT) 분석 및 Suricata 기반 탐지 규칙 작성 및 시현
 
 # Quasar RAT 1.3.0 (1.4.1) - RAT 패킷 분석 및 탐지
