@@ -12,6 +12,13 @@
 5. 사설 HTS위장을 통해 QuasarRAT 가 유출되고 있음
 6. APT33, APT10, Dropping Elephant, Stone Panda, The Gorgon Group을 포함한 많은 실제 해킹 그룹이 Quasar RAT를 사용함
 
+```
+분석도구
+1. Wireshark
+2. Suricata
+3. dnSpy
+```
+
 🔴 **중요**  
 > QuasarRAT는 실제 공격에서도 자주 관측되는 툴로, 다양한 파생 버전이 존재.
 
